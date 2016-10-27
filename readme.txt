@@ -1,1 +1,2 @@
-good good study,date date up
+hello word
+good good study,day day up
