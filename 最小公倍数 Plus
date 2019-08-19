@@ -1,0 +1,56 @@
+//为什么1小时有60分钟，而不是100分钟呢？这是历史上的习惯导致。  
+//但也并非纯粹的偶然：60是个优秀的数字，它的因子比较多。  
+//事实上，它是1至6的每个数字的倍数。即1,2,3,4,5,6都是可以除尽60。  
+//  
+//我们希望寻找到能除尽1至n的的每个数字的最小整数。  
+//  
+//不要小看这个数字，它可能十分大，比如n=100, 则该数为：  
+//69720375229712477164533808935312303556800  
+  
+//思路：  
+/*      1、由于涉及的数会很大 ， 使用大整数类型 BigInteger 
+ *      2、用数组保存范围内的所有的值  1-n； 
+ *      3、求所有数的最小公倍数； 
+ *      4、两两数进行比较取每次结果的公约数； 
+ *      5、将所有的值进行相乘； 
+ *  
+ *  
+ * */  
+  
+import java.math.BigInteger;  
+public class MinGongbeiPlus  
+{  
+    // 求能除尽1~n 每个数字的最小整数  
+    public static BigInteger f(int n)  
+    {  
+        int[] x = new int[n+1]; // 因为要包含  n 这个数字  
+        //赋值  
+        for(int i=1; i<=n; i++){   
+            x[i] = i;       //对数组元素进行赋值 1 - n  
+        }     
+        for(int i=2; i<n; i++)  
+        {  
+            for(int j=i+1; j<=n; j++)  
+            {  
+                //System.out.println(x[j]+"%"+x[i]+"="+x[j]%x[i]);  
+                // 解析：相邻两个数进行比较：例如：3 和 2   如果：3 能被2整除，则 取而者得商替换 3 的值  
+                if(x[j] % x[i]==0){   
+                    x[j]=x[j]/x[i];  
+                }  
+            }  
+            //System.out.println("的值为："+x[i]);  
+        }  
+  
+        BigInteger m = BigInteger.ONE;//接收所有数的 积  
+        for(int i=2; i<=n; i++)  
+        {  
+            m = m.multiply(BigInteger.valueOf(x[i]));    
+        }  
+        return m;  
+    }  
+  
+    public static void main(String[] args)  
+    {  
+        System.out.println(f(3));     
+    }  
+}  
