@@ -1,0 +1,59 @@
+在广场上有一排方砖是有颜色的，被涂上红色或者绿色，从左到右排列。现在校方要求重新喷涂颜色，但不一定要每一块方砖都重新喷涂，因为校方的目的是：每一块红色的方砖都至少在绿色方砖的左边（也就是每一个红的左边不能有绿的），并且尽量喷涂最少的次数。
+
+解答要求
+时间限制：1000ms, 内存限制：64MB
+输入
+输入只有一行，包含一个字符串S，且只包含'R'(代表红色)或者'G'(代表绿色)。
+我们保证字符串S的长度L的范围是(0 < L < 50 )。
+
+输出
+输出需要重新喷涂的方砖的最少数量。
+
+样例
+输入样例 1 复制
+
+RGRGR
+输出样例 1
+
+2
+
+提示
+样例中字符串S为RGRGR，则我们可以这么喷涂，即RGRGR喷成RRRGG（即将第二个字符喷成R，最后一个字符喷成G）或者RRRRR（即将两个G都喷成R），都是只需喷涂两个方砖，所以答案为2。
+
+我们再举个例子:若S为RRRGGGGG，则我们不需要在重新喷涂就已经满足“每一块红色的方砖都在绿色方砖的左边”的要求，所以答案将是0。
+
+
+这道题可以使用动态规划的方法求解。
+对于每块砖头，可以归纳为两类行动：
+1.刷成与自身不同的颜色，绿色->红色、红色->绿色；
+2.保持不变
+同时，题目给出了限制条件，红色砖块的左边不能是绿色砖块。结合这些条件，我们定义有状态转移方程
+dp[i] = min(rdp[i], gdp[i])
+rdp[i] = rdp[i-1]+1（color[i]为绿色） 或 rdp[i-1]（color[i]为红色）
+gdp[i] = min(gdp[i-1], rdp[i-1]) （color[i]为绿色）或 min(gdp[i-1], rdp[i-1])+1（color[i]为红色）
+其中，dp[i]表示第i位需要喷涂的最少次数，它由两种状态转化而来，rdp[i]表示当第i位是红色的情况下需要喷涂的最少次数，gdp[i]则表示第i位是绿色的情况下需要喷涂的最少次数。color[i]表示第i位的原来的颜色。
+以下为Java代码
+
+Public class Main
+{
+    public static void main(String[] args)
+    {
+        Scanner in = new Scanner(System.in);
+        String s = in.nextLine();
+        int[] rdp = new int[s.length()]; // 第i位刷成红色的喷涂次数dp数组
+        int[] gdp = new int[s.length()]; // 第i为刷成绿色的喷涂次数dp数组
+        if(s.charAt(0) == 'G') rdp[0] = 1;
+        else gdp[0] = 1;
+        for(int i = 1; i<s.length(); i++) {
+            if(s.charAt(i) == 'G') {
+                gdp[i] = Math.min(gdp[i-1], rdp[i-1]);
+                rdp[i] = rdp[i-1] + 1; // 本砖刷红色，上一个砖必然是红色，不能是绿色
+            } else if(s.charAt(i) == 'R') {
+                gdp[i] = Math.min(gdp[i-1], rdp[i-1]) + 1;
+                rdp[i] = rdp[i-1]; // 本砖刷红色，上一个砖必然是红色，不能是绿色
+            }
+        }
+        System.out.println(Math.min(rdp[s.length()-1], gdp[s.length()-1]));
+        return;
+    }
+}
