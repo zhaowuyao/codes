@@ -1,0 +1,44 @@
+题目描述
+从n个不同元素中，任取m(m≤n)个元素并成一组，叫做从n个不同元素中取出m个元素的一个组合；从n个不同元素中取出m(m≤n)个元素的所有组合的个数，叫做从n个不同元素中取出m个元素的组合数，用符号c(n,m)表示。
+计算公式为：c(n,m)=n!/((n-m)!×m!)
+现在你的任务是求出C(2n,1),C(2n,3),C(2n,5),…,C(2n,2n-1)的最大公约数。
+
+解答要求
+时间限制：5000ms, 内存限制：64MB
+输入
+输入只有一个整数n(1<n<=10000)。
+
+输出
+输出C(2n,1),C(2n,3),C(2n,5),…,C(2n,2n-1)的最大公约数。
+
+样例
+输入样例 1 复制
+
+3
+输出样例 1
+
+2
+/*
+*  这道题直接按照组合的公式求解内存不够，所以需要利用辗转相减等价的思路求解。a,b的最大公约数，等价于a-b(a>b)与b的公约数
+ *  那么 C(2n,1),c(2n,3)...,c(2n,2n-1)的最大公约数 等价于 从c(2n,1)和c(2n,1)+c(2n,3)+..+c(2n,2n-1)(求和等于(2n)^(2n-1)，奇偶项和相等，各等于总和的一半)的最大公约数
+ *  等价于 2n 和(2n)^(2n-1)的最大公约数，那么等价于n中最多有几个2（n最多有几个2问题，可以用n-n&(n-1)求取）
+ */
+ 
+ 
+ import java.util.Scanner;
+
+public class MaxGongyuePlus {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		int n=sc.nextInt();
+		System.out.println(getTwo(2*n));
+	}
+
+	private static int getTwo(int n) {
+		// TODO Auto-generated method stub
+		return n-(n&(n-1));
+	}
+
+}
