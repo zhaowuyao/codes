@@ -1,0 +1,1494 @@
+package test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
+class ListNode {
+	int val;
+	ListNode next = null;
+
+	ListNode(int val) {
+		this.val = val;
+	}
+}
+
+class TreeNode {
+	int val = 0;
+	TreeNode left = null;
+	TreeNode right = null;
+
+	public TreeNode(int val) {
+		this.val = val;
+
+	}
+
+}
+
+class TreeLinkNode {
+	int val;
+	TreeLinkNode left = null;
+	TreeLinkNode right = null;
+	TreeLinkNode next = null;
+
+	TreeLinkNode(int val) {
+		this.val = val;
+	}
+}
+
+class RandomListNode {
+	int label;
+	RandomListNode next = null;
+	RandomListNode random = null;
+
+	RandomListNode(int label) {
+		this.label = label;
+	}
+}
+
+public class Hello {
+	public static void main(String[] args) {
+		// System.out.println("hello java!");
+
+		
+		
+		
+		
+		
+		// "ABCESFCSADEE",3,4,"ABCCED"
+//		String matrix = "ABCESFCSADEE";
+//		char[] m = matrix.toCharArray();
+//		String str = "ABCCED";
+//		char[] s = str.toCharArray();
+//		System.out.println(hasPath(m, 3, 4, s));
+
+		
+		
+		
+		// [1,3,2,5,4]
+		// int[] numbers=new int[]{1,3,2,5,4};
+		// int[] numbers = new int[] { 1, 0, 0, 1, 0 };
+		// System.out.println(isContinuous(numbers));
+
+		// System.out.println(ReverseSentence(""));
+
+		// System.out.println(LeftRotateString("abcdefgh",3));
+
+		// System.out.println(FindContinuousSequence(3));
+
+		// int[] num=new int[]{1,2,3,4,5,6,7,0};
+		// System.out.println(InversePairs(num));
+
+		// System.out.println(FirstNotRepeatingChar("google"));
+
+		// System.out.println(GetUglyNumber_Solution(11));
+
+		// int[] numbers=new int[]{3,32,321};
+		// System.out.println(PrintMinNumber(numbers));
+
+		// System.out.println(NumberOf1Between1AndN_Solution(13));
+
+		// String ss="ab";
+		// System.out.println(Permutation(ss));
+
+		// TreeNode root=new TreeNode(5);
+		// root.left=new TreeNode(4);
+		// root.right=null;
+		// TreeNode root1=root.left;
+		// root1.left=new TreeNode(3);
+		// root1.right=null;
+		// TreeNode node=Convert(root);
+		// while(node!=null){
+		// System.out.println(node.val);
+		//// node=node.left;
+		// node=node.right;
+		// }
+
+		// 测试用例：{10,5,12,4,7}二叉搜索树变为双向链表
+		// TreeNode root=new TreeNode(10);
+		// root.left=new TreeNode(5);
+		// root.right=new TreeNode(12);
+		// TreeNode root1=root.left;
+		// root1.left=new TreeNode(4);
+		// root1.right=new TreeNode(7);
+		// System.out.println(Convert(root));
+
+		//// 测试用例：{10,5,12,4,7},15or22
+		// TreeNode root=new TreeNode(10);
+		// root.left=new TreeNode(5);
+		// root.right=new TreeNode(12);
+		// TreeNode root1=root.left;
+		// root1.left=new TreeNode(4);
+		// root1.right=new TreeNode(7);
+		//// System.out.println(FindPath(root,15));
+		// System.out.println(FindPath(root,22));
+
+		// int[] pushA=new int[]{1,2,3,4,5};
+		// int[] popA=new int[]{4,5,3,2,1};
+		// System.out.println(IsPopOrder(pushA,popA));
+
+		// int[][] matrix=new int[][]{{1}};
+		//
+		// System.out.println(printMatrix(matrix));
+
+		// ListNode list1=new ListNode(1);
+		// list1.next=new ListNode(3);
+		// list1.next.next=new ListNode(5);
+		// ListNode list2=new ListNode(2);
+		// list2.next=new ListNode(4);
+		// list2.next.next=new ListNode(6);
+		// ListNode list=Merge(list1,list2);
+		// while(list!=null){
+		// System.out.print(list.val+" ");
+		// list=list.next;
+		// }
+		//
+
+		// System.out.println(RectCover(5));
+
+		// System.out.println(Fibonacci(7));
+
+		// push(1);
+		// push(2);
+		// push(3);
+		// pop();
+		// pop();
+		// push(4);
+		// pop();
+		// push(5);
+		// pop();
+		// pop();
+	}
+
+	public int movingCount(int threshold, int rows, int cols) {
+		int sum=0;
+		if(threshold<0||rows<0||cols<0){
+			return sum;
+		}
+		boolean[][] flag=new boolean[rows][cols];
+		sum+=getMovingCount(threshold,rows,cols,0,0,flag);
+		
+		return sum;
+
+	}
+
+	private int getMovingCount(int threshold, int rows, int cols, int row, int col,boolean[][] flag) {
+		// TODO Auto-generated method stub
+		if(row<0||col<0||row>=rows||col>=cols||numSum(row)+numSum(col)>threshold||flag[row][col]==true){
+			return 0;
+		}
+		flag[row][col]=true;
+		return getMovingCount(threshold,rows,cols,row,col-1,flag)+getMovingCount(threshold,rows,cols,row,col+1,flag)+
+				getMovingCount(threshold,rows,cols,row-1,col,flag)+getMovingCount(threshold,rows,cols,row+1,col,flag)+1;
+	}
+
+	private int numSum(int num) {
+		// TODO Auto-generated method stub
+		int sum=0;
+		while(num!=0){
+			sum+=num%10;
+			num=num/10;
+		}
+		return sum;
+	}
+
+	public static boolean hasPath(char[] matrix, int rows, int cols, char[] str) {
+		if (rows <= 0 || cols <= 0 || str.length == 0 || str == null || matrix == null) {
+			return false;
+		}
+		boolean[][] flag = new boolean[rows][cols];
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				if (getPath(matrix, rows, cols, i, j, flag, str, 0)) {
+					return true;
+				}
+			}
+		}
+		return false;
+
+	}
+
+	private static boolean getPath(char[] matrix, int rows, int cols, int row, int col, boolean[][] flag, char[] str,
+			int index) {
+		// TODO Auto-generated method stub
+		int cur = row * cols + col;
+		if (row < 0 || col < 0 || row >= rows || col >= cols || flag[row][col] == true || index >= str.length
+				|| matrix[cur] != str[index]) {
+			return false;
+		}
+		if (index == str.length - 1) {
+			return true;
+		}
+		flag[row][col] = true;
+
+		index++;
+		if (getPath(matrix, rows, cols, row, col - 1, flag, str, index)
+				|| getPath(matrix, rows, cols, row, col + 1, flag, str, index)
+				|| getPath(matrix, rows, cols, row - 1, col, flag, str, index)
+				|| getPath(matrix, rows, cols, row + 1, col, flag, str, index)) {
+			return true;
+		}
+
+		flag[row][col] = false;
+		return false;
+	}
+
+	int index = 0;
+
+	TreeNode KthNode(TreeNode pRoot, int k) {
+
+		while (pRoot != null) {
+			TreeNode left = KthNode(pRoot.left, k);
+			if (left != null) {
+				return left;
+			}
+			index++;
+			if (k == index) {
+				return pRoot;
+			}
+			TreeNode right = KthNode(pRoot.right, k);
+			if (right != null) {
+				return right;
+			}
+
+		}
+
+		return null;
+
+	}
+
+	String Serialize(TreeNode root) {
+		if (root == null) {
+			return "#!";
+		}
+		String tree = root.val + "!";
+		tree = tree + Serialize(root.left);
+		tree = tree + Serialize(root.right);
+		return tree;
+
+	}
+
+	TreeNode Deserialize(String str) {
+		if (str == null || str.length() == 0) {
+			return null;
+		}
+		String[] tree = str.split("!");
+		Queue<String> queue = new LinkedList<String>();
+		for (int i = 0; i < tree.length; i++) {
+			queue.offer(tree[i]);
+		}
+		TreeNode node = reConstruct(queue);
+		return node;
+	}
+
+	private TreeNode reConstruct(Queue<String> queue) {
+		while (!queue.isEmpty()) {
+			String node = queue.poll();
+			if (!node.equals("#")) {
+				TreeNode head = new TreeNode(Integer.parseInt(node));
+				head.left = reConstruct(queue);
+				head.right = reConstruct(queue);
+				return head;
+			} else {
+				return null;
+			}
+		}
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	ArrayList<ArrayList<Integer>> Print(TreeNode pRoot) {
+		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		if (pRoot == null) {
+			return res;
+		}
+		int cur = 1;
+		int last = 0;
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+		queue.offer(pRoot);
+		while (!queue.isEmpty()) {
+			TreeNode node = queue.poll();
+			list.add(node.val);
+			cur--;
+			if (node.left != null) {
+				queue.offer(node.left);
+				last++;
+			}
+			if (node.right != null) {
+				queue.offer(node.right);
+				last++;
+			}
+			if (cur == 0) {
+				res.add(new ArrayList<Integer>(list));
+				list = new ArrayList<Integer>();
+				cur = last;
+				last = 0;
+
+			}
+		}
+		return res;
+	}
+
+	public ArrayList<ArrayList<Integer>> PrintZhi(TreeNode pRoot) {
+		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		if (pRoot == null) {
+			return res;
+		}
+		int index = 1;
+		int cur = 1;
+		int last = 0;
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+		queue.offer(pRoot);
+		while (!queue.isEmpty()) {
+			TreeNode node = queue.poll();
+			list.add(node.val);
+			cur--;
+			if (node.left != null) {
+				queue.offer(node.left);
+				last++;
+			}
+			if (node.right != null) {
+				queue.offer(node.right);
+				last++;
+			}
+			if (cur == 0) {
+				if (index % 2 == 0) {
+					Collections.reverse(list);
+				}
+				res.add(new ArrayList<Integer>(list));
+				list = new ArrayList<Integer>();
+				cur = last;
+				last = 0;
+				index++;
+
+			}
+		}
+		return res;
+	}
+
+	boolean isSymmetrical(TreeNode pRoot) {
+		if (pRoot == null) {
+			return true;
+		}
+
+		return getMrrorTree(pRoot.left, pRoot.right);
+
+	}
+
+	private boolean getMrrorTree(TreeNode left, TreeNode right) {
+		// TODO Auto-generated method stub
+		if (left == null && right == null) {
+			return true;
+		}
+		if (left != null && right != null) {
+			if (left.val == right.val) {
+				return getMrrorTree(left.left, right.right) || getMrrorTree(left.right, right.left);
+			}
+		}
+		return false;
+	}
+
+	public TreeLinkNode GetNext(TreeLinkNode pNode) {
+		if (pNode == null) {
+			return null;
+		}
+		if (pNode.right != null) {
+			pNode = pNode.right;
+			while (pNode.left != null) {
+				pNode = pNode.left;
+			}
+			return pNode;
+		}
+		while (pNode.next != null) {
+			if (pNode.next.left == pNode) {
+				return pNode.next;
+			}
+			pNode = pNode.next;
+
+		}
+		return null;
+
+	}
+
+	public ListNode deleteDuplication(ListNode pHead) {
+		if (pHead == null) {
+			return null;
+		}
+		ListNode pre = new ListNode(-1);
+		pre.next = pHead;
+		ListNode index = pHead;
+		ListNode head = pre;
+		while (index != null && index.next != null) {
+			if (index.val == index.next.val) {
+				int val = index.val;
+				while (index != null && val == index.val) {
+					index = index.next;
+				}
+				head.next = index;
+			} else {
+				head = index;
+				index = index.next;
+			}
+
+		}
+		return pre.next;
+	}
+
+	public ListNode EntryNodeOfLoop(ListNode pHead) {
+		if (pHead == null || pHead.next == null) {
+			return null;
+		}
+		ListNode fast = pHead;
+		ListNode low = pHead;
+		while (fast != null && fast.next != null) {
+			fast = fast.next.next;
+			low = low.next;
+			if (fast == low) {
+				low = pHead;
+				while (fast != low) {
+					fast = fast.next;
+					low = low.next;
+				}
+				return low;
+			}
+		}
+
+		return null;
+
+	}
+
+	HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+	ArrayList<Character> listmap = new ArrayList<Character>();
+
+	// Insert one char from stringstream
+	public void Insert(char ch) {
+		if (map.containsKey(ch)) {
+			map.put(ch, map.get(ch) + 1);
+		} else {
+			map.put(ch, 1);
+		}
+		listmap.add(ch);
+	}
+
+	// return the first appearence once char in current stringstream
+	public char FirstAppearingOnce() {
+		for (Character c : listmap) {
+			if (map.get(c) == 1) {
+				return c;
+			}
+		}
+		return '#';
+
+	}
+
+	public boolean isNumeric(char[] str) {
+		if (str.length == 0 || str == null) {
+			return false;
+		}
+		int dot = 0;
+		int e = 0;
+		int num = 0;
+		int index = 0;
+		if (str[0] == '-' || str[0] == '+') {
+			index++;
+		}
+		for (int i = index; i < str.length; i++) {
+			if (str[i] == '.') {
+				if (e > 0 || num == 0)
+					return false;
+				dot++;
+			} else if (str[i] == 'e' || str[i] == 'E') {
+				if (num == 0 || e > 0) {
+					return false;
+				}
+				if (i == str.length - 1) {
+					return false;
+				}
+				e++;
+			} else if (str[i] >= '0' && str[i] < '9') {
+				num++;
+				if (index < str.length && (str[index] == '+' || str[index] == '-'))
+					i++;
+				// 表示e或者符号在最后一位
+				if (index == str.length)
+					return false;
+			} else {
+				return false;
+			}
+		}
+		if (str[1] == '-' || str[1] == '+') {
+			return false;
+		}
+		return true;
+	}
+
+	public static boolean match(char[] str, char[] pattern) {
+		if (str == null || pattern == null) {
+			return false;
+		}
+		return getMatch(str, 0, pattern, 0);
+
+	}
+
+	private static boolean getMatch(char[] str, int i, char[] pattern, int j) {
+		// TODO Auto-generated method stub
+		if (str.length <= i && pattern.length <= j) {
+			return true;
+		}
+		if (str.length > i && pattern.length == j) {
+			return false;
+		}
+
+		if (j + 1 < pattern.length && pattern[j + 1] == '*') {
+			if (i >= str.length)
+				return getMatch(str, i, pattern, j + 2);
+			else {
+				if (str[i] == pattern[j] || pattern[j] == '.') {
+					return getMatch(str, i, pattern, j + 2) || getMatch(str, i + 1, pattern, j + 2)
+							|| getMatch(str, i + 1, pattern, j);
+				} else {
+					return getMatch(str, i, pattern, j + 2);
+				}
+			}
+		}
+		if (str.length <= i)
+			return false;
+		if (str[i] == pattern[j] || pattern[j] == '.') {
+			return getMatch(str, i + 1, pattern, j + 1);
+		}
+		return false;
+	}
+
+	public int Add(int num1, int num2) {
+		int sum = num1 ^ num2;
+		int temp = (num1 & num2) << 1;
+		while (temp != 0) {
+			int ss = sum ^ temp;
+			temp = (temp & sum) << 1;
+			sum = ss;
+		}
+		return sum;
+
+	}
+
+	public int Sum_Solution(int n) {
+		int sum = (1 + n) * n / 2;
+		return sum;
+
+	}
+
+	public int LastRemaining_Solution2(int n, int m) {
+		if (n == 0 || m == 0) {
+			return -1;
+		}
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		int index = 0;
+		for (int i = 0; i < n; i++) {
+			list.add(i);
+		}
+		while (list.size() > 1) {
+			index = (index + m - 1) % list.size();
+			list.remove(index);
+		}
+		return list.size() == 1 ? list.get(0) : -1;
+	}
+
+	public int LastRemaining_Solution(int n, int m) {
+		if (n == 0 || m == 0) {
+			return -1;
+		}
+
+		int index = 0;
+		for (int i = 2; i <= n; i++) {
+			index = (index + m) % i;
+
+		}
+		return index;
+
+	}
+
+	public static boolean isContinuous(int[] numbers) {
+		boolean flag = false;
+		if (numbers.length == 0 || numbers == null) {
+			return flag;
+		}
+		Arrays.sort(numbers);
+		int count = 0;
+		for (int i = 1; i < numbers.length; i++) {
+			if (numbers[i - 1] == 0) {
+				count++;
+			} else if (numbers[i - 1] == numbers[i]) {
+				count = -1;
+				break;
+			} else if (numbers[i - 1] + 1 != numbers[i]) {
+				count = count - (numbers[i] - numbers[i - 1] - 1);
+			}
+		}
+
+		if (count >= 0) {
+			flag = true;
+		}
+		return flag;
+
+	}
+
+	public static String ReverseSentence(String str) {
+		if (str.length() == 0 || str == null || str.trim().length() == 0) {
+			return str;
+		}
+		String[] string = str.split(" ");
+		int low = 0;
+		int high = string.length - 1;
+		while (low < high) {
+			String temp = string[high];
+			string[high] = string[low];
+			string[low] = temp;
+			high--;
+			low++;
+
+		}
+		String ss = "";
+		for (int i = 0; i < string.length; i++) {
+			ss += string[i] + " ";
+		}
+
+		return ss.trim();
+
+	}
+
+	public static String LeftRotateString(String str, int n) {
+		String string = "";
+		if (str.length() == 0 || str.equals("") || n < 0) {
+			return string;
+		}
+		n = n % str.length();
+		CharSequence ch1 = str.subSequence(0, n);
+		CharSequence ch2 = str.subSequence(n, str.length());
+		String s1 = String.valueOf(ch1);
+		String s2 = String.valueOf(ch2);
+		string = s2 + s1;
+		return string;
+
+	}
+
+	public ArrayList<Integer> FindNumbersWithSum2(int[] array, int sum) {
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		if (array.length < 2 || array == null) {
+			return res;
+		}
+		int low = 0;
+		int high = array.length - 1;
+
+		while (low < high) {
+			int cursum = array[low] + array[high];
+			if (cursum < sum) {
+				low++;
+			} else if (cursum > sum) {
+				high--;
+			} else if (cursum == sum) {
+				res.add(array[low]);
+				res.add(array[high]);
+				break;
+			}
+
+		}
+
+		return res;
+	}
+
+	public ArrayList<Integer> FindNumbersWithSum(int[] array, int sum) {
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		if (array.length == 0 || array == null) {
+			return res;
+		}
+		for (int i = 0; i < array.length; i++) {
+			for (int j = i + 1; j < array.length; j++) {
+				int cursum = array[i] + array[j];
+				if (sum == cursum) {
+					res.add(array[i]);
+					res.add(array[j]);
+					return res;
+				}
+			}
+
+		}
+		return res;
+	}
+
+	public ArrayList<ArrayList<Integer>> FindContinuousSequence2(int sum) {
+		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+		if (sum < 3) {
+			return result;
+		}
+		for (int i = 1; i < (sum + 1) / 2; i++) {
+			for (int len = 2;; len++) {
+				int cursum = getSum2(i, len);
+				if (sum == cursum) {
+					result.add(saveList(i, len));
+				} else if (sum < cursum) {
+					break;
+				}
+			}
+		}
+
+		return result;
+
+	}
+
+	private ArrayList<Integer> saveList(int start, int len) {
+		// TODO Auto-generated method stub
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		int end = start + len - 1;
+		for (int i = start; i <= end; i++) {
+			list.add(i);
+		}
+		return list;
+	}
+
+	private int getSum2(int i, int len) {
+		// TODO Auto-generated method stub
+		int end = i + len - 1;
+		return (i + end) * len / 2;
+	}
+
+	public static ArrayList<ArrayList<Integer>> FindContinuousSequence(int sum) {
+		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		if (sum < 3) {
+			return result;
+		}
+		int small = 1;
+		int big = 2;
+
+		while (small < (sum + 1) / 2) {
+			int cursum = getSum(small, big);
+			if (sum > cursum) {
+				big++;
+			} else if (sum < cursum) {
+				small++;
+			} else if (sum == cursum) {
+				for (int i = small; i <= big; i++) {
+					list.add(i);
+				}
+				result.add(new ArrayList<Integer>(list));
+				list.clear();
+				big++;
+			}
+
+		}
+
+		return result;
+
+	}
+
+	private static int getSum(int small, int big) {
+		// TODO Auto-generated method stub
+		int sum = 0;
+		for (int i = small; i <= big; i++) {
+			sum += i;
+		}
+		return sum;
+	}
+
+	public void FindNumsAppearOnce(int[] array, int num1[], int num2[]) {
+		int temp = 0;
+		for (int i = 0; i < array.length; i++) {
+			temp = temp ^ array[i];
+		}
+		int firstOne = temp & (~temp + 1);
+
+		for (int i = 0; i < array.length; i++) {
+			if ((firstOne & array[i]) == 0) {
+				num1[0] ^= array[i];
+			}
+		}
+		num2[0] = temp ^ num1[0];
+
+	}
+
+	public boolean IsBalanced_Solution(TreeNode root) {
+		boolean flag = false;
+		if (root == null) {
+
+			return true;
+		}
+		int index = getIsBalanced(root);
+		if (index != -1) {
+			flag = true;
+		}
+		return flag;
+
+	}
+
+	private int getIsBalanced(TreeNode root) {
+		// TODO Auto-generated method stub
+		if (root == null) {
+			return 0;
+		}
+		int left = getIsBalanced(root.left);
+		if (left == -1) {
+			return -1;
+		}
+		int right = getIsBalanced(root.right);
+		if (right == -1) {
+			return -1;
+		}
+		return Math.abs(left - right) > 1 ? -1 : 1 + Math.max(left, right);
+	}
+
+	public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) {
+		if (pHead1 == null || pHead2 == null) {
+			return null;
+		}
+		ListNode cur1 = pHead1;
+		ListNode cur2 = pHead2;
+		int n = 0;
+		while (cur1 != null) {
+			cur1 = cur1.next;
+			n++;
+		}
+		while (cur2 != null) {
+			cur2 = cur2.next;
+			n--;
+		}
+		if (cur1 != cur2) {
+			return null;
+		}
+		cur1 = n > 0 ? pHead1 : pHead2;
+		cur2 = cur1 == pHead1 ? pHead2 : pHead1;
+		n = Math.abs(n);
+		while (n != 0) {
+			n--;
+			cur1 = cur1.next;
+		}
+		while (cur1 != cur2) {
+			cur1 = cur1.next;
+			cur2 = cur2.next;
+		}
+		return cur1;
+
+	}
+
+	public static int count = 0;
+
+	public static int InversePairs(int[] array) {
+
+		if (array.length == 0 || array == null) {
+			return count;
+		}
+		mergeSort(array, 0, array.length - 1);
+
+		return count;
+	}
+
+	private static void mergeSort(int[] array, int start, int end) {
+		// TODO Auto-generated method stub
+		if (start < end) {
+			int mid = (start + end) / 2;
+			mergeSort(array, start, mid);
+			mergeSort(array, mid + 1, end);
+			mergeSort(array, start, mid, mid + 1, end);
+		}
+
+	}
+
+	private static void mergeSort(int[] array, int start1, int end1, int start2, int end2) {
+		// TODO Auto-generated method stub
+		int j = end2;
+		int i = end1;
+		int k = end2 - start1;
+		int[] temp = new int[end2 - start1 + 1];
+		while (i >= start1 && j >= start2) {
+			if (array[i] > array[j]) {
+				temp[k--] = array[i--];
+				count = count + j - start2 + 1;
+				count = count % 1000000007;
+			} else {
+				temp[k--] = array[j--];
+			}
+		}
+		while (i >= start1) {
+			temp[k--] = array[i--];
+		}
+		while (j >= start2) {
+			temp[k--] = array[j--];
+		}
+		int m = start1;
+		for (int num : temp) {
+			array[m++] = num;
+		}
+
+	}
+
+	// 通过率为50%，使用了两个嵌套循环，复杂度过大。
+	public int InversePairs2(int[] array) {
+		int count = 0;
+		if (array.length == 0 || array == null) {
+			return count;
+		}
+		for (int i = 0; i < array.length; i++) {
+			for (int j = i + 1; j < array.length; j++) {
+				if (array[i] > array[j]) {
+					count++;
+				}
+			}
+		}
+		count = count % 1000000007;
+		return count;
+
+	}
+
+	public static int FirstNotRepeatingChar(String str) {
+		int index = -1;
+		if (str.length() == 0 || str.equals("") || str == null) {
+			return index;
+		}
+		char[] ch = str.toCharArray();
+		HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+		for (int i = 0; i < ch.length; i++) {
+			if (!map.containsKey(ch[i])) {
+				map.put(ch[i], 1);
+			} else {
+				map.put(ch[i], map.get(ch[i]) + 1);
+			}
+		}
+		for (int i = 0; i < ch.length; i++) {
+			if (map.get(ch[i]) == 1) {
+				index = i;
+				break;
+			}
+		}
+
+		return index;
+	}
+
+	public static int GetUglyNumber_Solution(int index) {
+		if (index <= 0) {
+			return 0;
+		}
+		int[] number = new int[index];
+		number[0] = 1;
+		int two = 0;
+		int three = 0;
+		int five = 0;
+		for (int i = 1; i < index; i++) {
+			number[i] = Math.min(2 * number[two], Math.min(3 * number[three], 5 * number[five]));
+			if (number[i] == 2 * number[two]) {
+				two++;
+			}
+			if (number[i] == 3 * number[three]) {
+				three++;
+			}
+			if (number[i] == 5 * number[five]) {
+				five++;
+			}
+		}
+		return number[index - 1];
+	}
+
+	public static String PrintMinNumber(int[] numbers) {
+		if (numbers.length == 0 || numbers == null) {
+			return "";
+		}
+		String[] str = new String[numbers.length];
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < numbers.length; i++) {
+			str[i] = String.valueOf(numbers[i]);
+		}
+		Arrays.sort(str, new Comparator<String>() {
+
+			@Override
+			public int compare(String s1, String s2) {
+				// TODO Auto-generated method stub
+				String c1 = s1 + s2;
+				String c2 = s2 + s1;
+				return c1.compareTo(c2);
+			}
+		});
+		for (int i = 0; i < str.length; i++) {
+			System.out.println(str[i]);
+			sb.append(str[i]);
+		}
+		// str输出 321、32、3的顺序输出
+		return sb.toString();
+
+	}
+
+	public static int NumberOf1Between1AndN_Solution(int n) {
+		if (n < 1) {
+			return 0;
+		}
+		int count = 0;
+		int high = n;
+		int low = 0;
+		int i = 1;
+		while (high != 0) {
+			high = n / basePow(i); // i的高位
+			int temp = n % basePow(i);
+			int index = temp / basePow(i - 1); // i的位数数字
+			low = temp % basePow(i - 1); // i的低位
+			if (index < 1) {
+				count += high * basePow(i - 1);
+			} else if (index == 1) {
+				count += high * basePow(i - 1) + (low + 1);
+			} else {
+				count += (high + 1) * basePow(i - 1);
+			}
+			i++;
+		}
+		return count;
+
+	}
+
+	private static int basePow(int i) {
+		// TODO Auto-generated method stub
+		int result = (int) Math.pow(10, i);
+		return result;
+	}
+
+	public int FindGreatestSumOfSubArray(int[] array) {
+		if (array.length == 0) {
+			return 0;
+		}
+		int max = array[0];
+		int sum = 0;
+		for (int i = 0; i < array.length; i++) {
+
+			if (sum <= 0) {
+				sum = array[i];
+			} else {
+				sum += array[i];
+			}
+
+			if (max < sum) {
+				max = sum;
+			}
+		}
+
+		return max;
+
+	}
+
+	public int MoreThanHalfNum_Solution(int[] array) {
+		if (array.length == 0) {
+			return 0;
+		}
+		int cand = array[0];
+		int time = 0;
+		for (int i = 0; i < array.length; i++) {
+			if (time == 0) {
+				cand = array[i];
+			}
+			if (cand == array[i]) {
+				time++;
+			} else {
+				time--;
+			}
+		}
+		time = 0;
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] == cand) {
+				time++;
+			}
+		}
+		if (time * 2 > array.length) {
+			return cand;
+		} else {
+			return 0;
+		}
+
+	}
+
+	public static ArrayList<String> Permutation(String str) {
+		ArrayList<String> plist = new ArrayList<String>();
+		if (str == null || str.equals("")) {
+			return plist;
+		}
+		char[] ch = str.toCharArray();
+		Permutation(ch, 0, plist);
+		Collections.sort(plist);
+		return plist;
+
+	}
+
+	private static void Permutation(char[] ch, int start, ArrayList<String> list) {
+		// TODO Auto-generated method stub
+		if (start == ch.length - 1) {
+			if (!list.contains(String.valueOf(ch))) {
+				list.add(String.valueOf(ch));
+				// return;
+			}
+
+		}
+		for (int i = start; i < ch.length; i++) {
+			swap(ch, i, start);
+			Permutation(ch, start + 1, list);
+			swap(ch, i, start);
+		}
+	}
+
+	private static void swap(char[] ch, int i, int start) {
+		// TODO Auto-generated method stub
+		char temp = ch[i];
+		ch[i] = ch[start];
+		ch[start] = temp;
+	}
+
+	public static TreeNode head = null;
+	public static TreeNode resulthead = null;
+
+	public static TreeNode Convert(TreeNode pRootOfTree) {
+		if (pRootOfTree == null) {
+			return null;
+		}
+		Convert(pRootOfTree.left);
+		if (head == null) {
+			head = pRootOfTree;
+			resulthead = pRootOfTree;
+		} else {
+			head.right = pRootOfTree;
+			pRootOfTree.left = head;
+			head = pRootOfTree;
+		}
+		Convert(pRootOfTree.right);
+		return resulthead;
+
+	}
+
+	public RandomListNode Clone(RandomListNode pHead) {
+		if (pHead == null) {
+			return null;
+		}
+		RandomListNode head = pHead;
+		HashMap<RandomListNode, RandomListNode> map = new HashMap<RandomListNode, RandomListNode>();
+		while (head != null) {
+			map.put(head, new RandomListNode(head.label));
+			head = head.next;
+		}
+		head = pHead;
+		while (head != null) {
+			map.get(head).next = map.get(head.next);
+			map.get(head).random = map.get(head.random);
+			head = head.next;
+		}
+
+		return map.get(pHead);
+
+	}
+
+	public static ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+	public static ArrayList<Integer> list = new ArrayList<Integer>();
+
+	public static ArrayList<ArrayList<Integer>> FindPath(TreeNode root, int target) {
+		if (root == null) {
+			return result;
+		}
+		target = target - root.val;
+		list.add(root.val);
+		if (target == 0 && root.left == null && root.right == null) {
+			result.add(new ArrayList(list));
+			// 按以下方式，result值会随着list的值而改变，为了固定result值需要新建一个与list相同的对象加入到result中，正确方式在上一行的表示方法
+			// result.add(list);
+		}
+		FindPath(root.left, target);
+		FindPath(root.right, target);
+		list.remove(list.size() - 1);
+		return result;
+
+	}
+
+	public boolean VerifySquenceOfBST(int[] sequence) {
+
+		if (sequence.length == 0 || sequence == null) {
+			return false;
+		}
+		boolean flag = VerfySequenceofBST(sequence, 0, sequence.length - 1);
+		return flag;
+
+	}
+
+	private boolean VerfySequenceofBST(int[] sequence, int start, int end) {
+		// TODO Auto-generated method stub
+		if (start >= end) {
+			return true;
+		}
+		int i = start;
+		int root = sequence[end];
+		while (sequence[i] < root) {
+			i++;
+		}
+		for (int j = i; j < end; j++) {
+			if (sequence[j] < root) {
+				return false;
+			}
+		}
+
+		return VerfySequenceofBST(sequence, start, i - 1) && VerfySequenceofBST(sequence, i, end - 1);
+	}
+
+	public ArrayList<Integer> PrintFromTopToBottom(TreeNode root) {
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		if (root == null) {
+			return result;
+		}
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+		queue.offer(root);
+		result.add(root.val);
+		while (!queue.isEmpty()) {
+			TreeNode node = queue.poll();
+			if (node.left != null) {
+				queue.offer(node.left);
+				result.add(node.left.val);
+			}
+			if (node.right != null) {
+				queue.offer(node.right);
+				result.add(node.right.val);
+			}
+		}
+		return result;
+
+	}
+
+	public static boolean IsPopOrder(int[] pushA, int[] popA) {
+		if (pushA.length == 0 || popA.length == 0 || pushA.length != popA.length) {
+			return false;
+		}
+		Stack<Integer> stack = new Stack<Integer>();
+		int j = 0;
+		for (int i = 0; i < pushA.length; i++) {
+			stack.push(pushA[i]);
+			// 两个条件位置的前后很重要，要不然会报错
+			while (!stack.isEmpty() && stack.peek() == popA[j]) {
+				j++;
+				stack.pop();
+			}
+		}
+		return stack.isEmpty();
+
+	}
+
+	// ["PSH3","MIN","PSH4","MIN","PSH2","MIN","PSH3","MIN","POP","MIN","POP","MIN","POP","MIN","PSH0","MIN"]
+	//
+	// 对应输出应该为:
+	//
+	// 3,3,2,2,2,3,3,0
+	// 3,4,2,3,2,4,3,0
+	Stack<Integer> stackdata = new Stack<Integer>();
+	Stack<Integer> stackmin = new Stack<Integer>();
+
+	public void push1(int node) {
+		stackdata.push(node);
+		if (stackmin.isEmpty() || stackmin.peek() > node) {
+			stackmin.push(node);
+		} else {
+			stackmin.push(stackmin.peek());
+		}
+	}
+
+	public void pop1() {
+		stackdata.pop();
+		stackmin.pop();
+	}
+
+	public int top() {
+		return stackmin.peek();
+
+	}
+
+	public int min() {
+		return stackmin.peek();
+
+	}
+
+	public static ArrayList<Integer> printMatrix(int[][] matrix) {
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		int row = matrix.length - 1;
+		int col = matrix[0].length - 1;
+		int startrow = 0;
+		int startcol = 0;
+		while (startrow <= row && startcol <= col) {
+			circle(matrix, startrow++, startcol++, row--, col--, list);
+		}
+		return list;
+
+	}
+
+	private static void circle(int[][] matrix, int startrow, int startcol, int row, int col, ArrayList<Integer> list) {
+		// TODO Auto-generated method stub
+		if (startcol == col) {
+			for (int i = startrow; i <= row; i++) {
+				list.add(matrix[i][startcol]);
+			}
+			return;
+		}
+		if (startrow == row) {
+			for (int i = startcol; i <= col; i++) {
+				list.add(matrix[startrow][i]);
+			}
+			return;
+		}
+
+		// 从左上到右上
+		for (int i = startcol; i <= col; i++) {
+			list.add(matrix[startrow][i]);
+		}
+		// 从上到下
+		for (int i = startrow + 1; i <= row; i++) {
+			list.add(matrix[i][col]);
+		}
+		// 从右下到左下
+		for (int i = col - 1; i >= startcol; i--) {
+			list.add(matrix[row][i]);
+
+		}
+		// 从下到上
+		for (int i = row - 1; i > startrow; i--) {
+			list.add(matrix[i][startcol]);
+		}
+	}
+
+	public static ListNode Merge(ListNode list1, ListNode list2) {
+		if (list1 == null && list2 == null) {
+			return null;
+		}
+		ListNode head = new ListNode(0);// 这里不能把返回链表赋值为null，因为下一行马上就要把它赋值给另一链表，得让它在内存里有位置才行
+		ListNode start = head;
+		while (list1 != null && list2 != null) {
+			ListNode node = null;
+			if (list1.val <= list2.val) {
+				node = new ListNode(list1.val);
+				list1 = list1.next;
+			} else {
+				node = new ListNode(list2.val);
+				list2 = list2.next;
+			}
+			head.next = node;
+			head = node;
+		}
+		if (list1 != null) {
+			head.next = list1;
+
+		}
+		if (list2 != null) {
+			head.next = list2;
+
+		}
+
+		return start.next;
+
+	}
+
+	public ListNode ReverseList(ListNode head) {
+		if (head == null) {
+			return null;
+		}
+		ListNode pre = null;
+		ListNode next = head;
+		while (head.next != null) {
+			next = head.next;
+			head.next = pre;
+			pre = head;
+			head = next;
+		}
+		head.next = pre;
+
+		return head;
+
+	}
+
+	public int NumberOf1(int n) {
+		int count = 0;
+		while (n != 0) {
+			n = n & (n - 1);
+			count++;
+		}
+
+		return count;
+
+	}
+
+	public static int RectCover(int target) {
+		// 必须写target《=0的情况，要不然会报错
+		if (target <= 0) {
+			return 0;
+		}
+		if (target == 1) {
+			return 1;
+		}
+		if (target == 2) {
+			return 2;
+		}
+		return RectCover(target - 1) + RectCover(target - 2);
+
+	}
+
+	public int JumpFloorII(int target) {
+		if (target == 1) {
+			return 1;
+		}
+		if (target == 2) {
+			return 2;
+		}
+
+		return 2 * JumpFloorII(target - 1);
+
+	}
+
+	public int JumpFloor(int target) {
+		if (target == 1) {
+			return 1;
+		}
+		if (target == 2) {
+			return 2;
+		}
+
+		return JumpFloor(target - 1) + JumpFloor(target - 2);
+
+	}
+
+	public static int Fibonacci(int n) {
+		if (n == 1) {
+			return 1;
+		}
+		if (n == 0) {
+			return 0;
+		}
+		return Fibonacci(n - 1) + Fibonacci(n - 2);
+
+	}
+
+	public int minNumberInRotateArray(int[] array) {
+		Arrays.sort(array);
+		return array[0];
+
+	}
+
+	static Stack<Integer> stack1 = new Stack<Integer>();
+	static Stack<Integer> stack2 = new Stack<Integer>();
+
+	public static void push(int node) {
+		stack1.push(node);
+
+	}
+
+	public static int pop() {
+		while (!stack1.isEmpty()) {
+			stack2.push(stack1.pop());
+		}
+		System.out.println(stack2.peek());
+		int result = stack2.pop();
+		while (!stack2.isEmpty()) {
+			stack1.push(stack2.pop());
+		}
+
+		return result;
+
+	}
+}
