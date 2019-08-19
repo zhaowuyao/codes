@@ -57,3 +57,21 @@ Public class Main
         return;
     }
 }
+
+解法二：
+import java.util.Scanner;
+public class Main
+{
+    public static void main(String[] args)
+    {
+       Scanner s = new Scanner(System.in);
+        String input = s.nextLine();
+        int result = 0;
+        while(input.contains("GR")) {
+        input = input.replaceFirst("GR", "");
+        result++;
+        }
+        System.out.println(result);
+    }
+}
+
